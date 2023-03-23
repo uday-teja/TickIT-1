@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\repos\develop\TickIT.Models\TickIT.Models.csproj" />
     <ProjectReference Include="..\TickIT.Models\TickIT.Models.csproj" />
   </ItemGroup>
 
