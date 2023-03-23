@@ -1,0 +1,60 @@
+﻿<mah:MetroWindow x:Class="TickIT.App.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:TickIT.App.Views"
+        mc:Ignorable="d"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        xmlns:cal ="http://www.caliburnproject.org"
+        Dialog:DialogParticipation.Register="{Binding}"
+        Icon="/Images/app_icon.png"
+        TitleBarHeight="30"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        WindowState="Maximized"
+        Title="TickIT" MinHeight="800" MinWidth="800"
+        xmlns:tb="http://www.hardcodet.net/taskbar">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <TextBlock Text="Db Provider" Style="{StaticResource TM.TextBlock.TitleBarDbName}"/>
+            <TextBox Width="160" Text="{Binding DatabaseProviderName}" Margin="3" FontWeight="DemiBold" Background="#F6F5F9" IsEnabled="False"/>
+            <Button cal:Message.Attach="[Event Click]=[Action SwitchTheme]" ToolTip="Switch Theme">
+                <iconPacks:PackIconModern Kind="Moon" Width="20" Height="15"/>
+            </Button>
+            <Button cal:Message.Attach="[Event Click]=[Action GotoSource]" ToolTip="Source Code">
+                <iconPacks:BootstrapIcons Kind="Github" Width="20" Height="15"/>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="IsHitTestVisible" Value="True"/>
+                    <Setter Property="Opacity" Value="1"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsProgressRingActive}" Value="True">
+                            <Setter Property="Opacity" Value="0.3"/>
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <!--<tb:TaskbarIcon IconSource="/Images/app_icon.ico" ToolTipText="Task manager">
+                <tb:TaskbarIcon.TrayPopup>
+                    <StackPanel Width="100">
+                        <Button Content="Open" cal:Message.Attach="[Event Click] = [Action Open]" Style="{StaticResource TM.Button.TrayButton}"/>
+                        <Button Content="Quit" cal:Message.Attach="[Event Click] = [Action Quit]" Style="{StaticResource TM.Button.TrayButton}"/>
+                    </StackPanel>
+                </tb:TaskbarIcon.TrayPopup>
+            </tb:TaskbarIcon>-->
+
+            <ContentControl x:Name="ActiveItem"/>
+        </Grid>
+        <mah:ProgressRing IsActive="{Binding IsProgressRingActive}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Grid>
+</mah:MetroWindow>

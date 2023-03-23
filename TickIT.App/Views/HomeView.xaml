@@ -1,0 +1,200 @@
+﻿<UserControl x:Class="TickIT.App.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TickIT.App.Views"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:cal ="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <Style x:Key="TM.ListBox.NewTicketsStyleSelector" TargetType="ListBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="AllowDrop" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NewTickets.Count}" Value="0">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBox">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="/Images/tasks_new.png" Opacity="0.7"/>
+                                    <TextBlock Grid.Row="1" Style="{StaticResource TM.TextBlock.BoldLabels}" Text="The tickets you create will show up here!" FontSize="15" HorizontalAlignment="Center" Foreground="Gray"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TM.ListBox.InProgressTicketsStyleSelector" TargetType="ListBox" >
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="AllowDrop" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding InProgressTickets.Count}" Value="0">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBox">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Image Source="/Images/tasks_inprogress.png"
+                                Opacity="0.7"/>
+                                    <TextBlock Grid.Row="1" Style="{StaticResource TM.TextBlock.BoldLabels}" Text="The tickets which are in progress will show up here!" FontSize="15" HorizontalAlignment="Center" Foreground="Gray"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TM.ListBox.CompletedTicketsStyleSelector" TargetType="ListBox" >
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="AllowDrop" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CompletedTickets.Count}" Value="0">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBox">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Image Source="/Images/tasks_completed.png"
+                                Opacity="0.7"/>
+                                    <TextBlock Grid.Row="1" Style="{StaticResource TM.TextBlock.BoldLabels}" Text="Completed tickets will show up here!" FontSize="15" HorizontalAlignment="Center" Foreground="Gray"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Name="CreateTicketForm" Margin="0 30 0 0" Visibility="{Binding IsCardViewEnabled,Converter={StaticResource TM.Converters.BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border BorderBrush="Gray" BorderThickness="1">
+                <TextBlock Text="Create Ticket" Style="{StaticResource TM.TextBlock.PrimaryHeading}" Foreground="Black" Background="White"/>
+            </Border>
+            <ContentControl Grid.Row="1" BorderBrush="Black" BorderThickness="0 0 0 2"  cal:View.Model="{Binding CreateTicketView}" Margin="5"/>
+
+        </Grid>
+
+        <Grid  Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Name="Controls" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel  Grid.Column="1" Orientation="Horizontal">
+                    <Button  x:Name="SwitchToCardView" ToolTip="Card view" Height="10" Width="30" Margin="2 2 2 2" HorizontalAlignment="Center" >
+                        <iconPacks:BootstrapIcons Kind="CardList" Height="10"/>
+                    </Button>
+                    <Button  x:Name="SwitchToListView" Height="10" Width="30" ToolTip="List view" Margin="3 2 15 2" HorizontalAlignment="Center">
+                        <iconPacks:BootstrapIcons Kind="ListUl" Height="9"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Name="PriorityIndicators" Grid.Column="2" Orientation="Horizontal">
+                    <Rectangle  Style="{StaticResource TM.PriorityIndicator.Low}"/>
+                    <TextBlock  Text="Low" VerticalAlignment="Center"/>
+                    <Rectangle   Style="{StaticResource TM.PriorityIndicator.Medium}"/>
+                    <TextBlock  Text="Medium" VerticalAlignment="Center"/>
+                    <Rectangle Style="{StaticResource TM.PriorityIndicator.High}" />
+                    <TextBlock  Text="High" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                </StackPanel>
+
+            </Grid>
+
+            <Grid Name="TicketView" Grid.Row="1"  Style="{StaticResource TM.Grid.CardView}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition  />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  />
+                    <ColumnDefinition />
+                    <ColumnDefinition  />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  Text="New" Style="{StaticResource TM.TextBlock.PrimaryHeading}"  />
+                <TextBlock   Grid.Column="1"
+                   Text="In Progress" Style="{StaticResource TM.TextBlock.PrimaryHeading}"/>
+                <TextBlock   Grid.Column="2"
+                   Text="Completed" Style="{StaticResource TM.TextBlock.PrimaryHeading}" />
+
+                <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1" >
+                    <ListBox x:Name="NewList" 
+                     ItemsSource="{Binding NewTickets}"
+                     Style="{StaticResource TM.ListBox.NewTicketsStyleSelector}"
+                     cal:Message.Attach="[Event MouseMove] = [Action MouseMoveHandler($eventArgs)];
+                     [Event Drop] = [Action DropOnNewTickets($eventArgs)]"
+                     ItemTemplate="{StaticResource TM.ListBox.TicketCardViewTemplate}"
+                     ItemContainerStyle="{StaticResource TM.ListBox.ListBoxItemStyle}"/>
+                </Border>
+
+                <Border BorderBrush="Black" Grid.Row="1" Grid.Column="1" BorderThickness="0 1 1 1">
+                    <ListBox x:Name="InProgressList"  
+                     ItemsSource="{Binding InProgressTickets}" 
+                     Style="{StaticResource TM.ListBox.InProgressTicketsStyleSelector}"
+                     cal:Message.Attach="[Event MouseMove] = [Action MouseMoveHandler($eventArgs)];
+                     [Event Drop] = [Action DropOnInProgressTickets($eventArgs)]"
+                      ItemTemplate="{StaticResource TM.ListBox.TicketCardViewTemplate}"
+                     ItemContainerStyle="{StaticResource TM.ListBox.ListBoxItemStyle}"/>
+                </Border>
+
+                <Border BorderBrush="Black" Grid.Row="1" Grid.Column="2" BorderThickness="0 1 1 1">
+                    <ListBox x:Name="CompletedList" 
+                     ItemsSource="{Binding CompletedTickets}"
+                     Style="{StaticResource TM.ListBox.CompletedTicketsStyleSelector}"
+                     cal:Message.Attach="[Event Drop] = [Action DropOnCompletedTickets($eventArgs)]"
+                     ItemTemplate="{StaticResource TM.ListBox.TicketCardViewTemplate}"
+                     ItemContainerStyle="{StaticResource TM.ListBox.ListBoxItemStyle}"/>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
+        <ContentControl Grid.ColumnSpan="2" cal:View.Model="{Binding ListViewModel}" Visibility="{Binding IsListViewEnabled,Converter={StaticResource TM.Converters.BooleanToVisibilityConverter}}"/>
+
+    </Grid>
+</UserControl>
