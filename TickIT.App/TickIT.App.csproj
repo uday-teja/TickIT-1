@@ -30,7 +30,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TickIT.Core\TickIT.Core.csproj" />
 		<ProjectReference Include="..\TickIT.Models\TickIT.Models.csproj" />
 	</ItemGroup>
 
