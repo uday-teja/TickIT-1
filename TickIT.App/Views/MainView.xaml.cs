@@ -3,7 +3,7 @@
 namespace TickIT.App.Views
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for LeftNavView.xaml
     /// </summary>
     public partial class MainView : MetroWindow
     {

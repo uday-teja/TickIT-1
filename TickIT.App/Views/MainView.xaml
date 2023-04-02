@@ -9,6 +9,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         xmlns:cal ="http://www.caliburnproject.org"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         Dialog:DialogParticipation.Register="{Binding}"
         Icon="/Images/app_icon.png"
         TitleBarHeight="30"
@@ -16,45 +17,94 @@
         WindowState="Maximized"
         Title="TickIT" MinHeight="800" MinWidth="800"
         xmlns:tb="http://www.hardcodet.net/taskbar">
-    <mah:MetroWindow.RightWindowCommands>
-        <mah:WindowCommands>
-            <TextBlock Text="Db Provider" Style="{StaticResource TM.TextBlock.TitleBarDbName}"/>
-            <TextBox Width="160" Text="{Binding DatabaseProviderName}" Margin="3" FontWeight="DemiBold" Background="#F6F5F9" IsEnabled="False"/>
-            <Button cal:Message.Attach="[Event Click]=[Action SwitchTheme]" ToolTip="Switch Theme">
-                <iconPacks:PackIconModern Kind="Moon" Width="20" Height="15"/>
-            </Button>
-            <Button cal:Message.Attach="[Event Click]=[Action GotoSource]" ToolTip="Source Code">
-                <iconPacks:BootstrapIcons Kind="Github" Width="20" Height="15"/>
-            </Button>
-        </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>
+    <Window.Resources>
+
+        <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type Controls:HamburgerMenuGlyphItem}">
+            <DockPanel Height="48" LastChildFill="True">
+                <Grid x:Name="IconPart" Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:HamburgerMenu}}, Path=CompactPaneLength}" DockPanel.Dock="Left">
+                    <Image Margin="12" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Glyph}" />
+                </Grid>
+                <TextBlock x:Name="TextPart" VerticalAlignment="Center" FontSize="16" Text="{Binding Label}" />
+            </DockPanel>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
+                    <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
+                    <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <DataTemplate x:Key="HamburgerOptionsMenuItem" DataType="{x:Type Controls:HamburgerMenuIconItem}">
+            <DockPanel Height="48" LastChildFill="True">
+                <ContentControl x:Name="IconPart" Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:HamburgerMenu}}, Path=CompactPaneLength}" Content="{Binding Icon}" DockPanel.Dock="Left" Focusable="False" IsTabStop="False" />
+                <TextBlock x:Name="TextPart" VerticalAlignment="Center" FontSize="16" Text="{Binding Label}" />
+            </DockPanel>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:HamburgerMenu}}, Path=PanePlacement}" Value="Right">
+                    <Setter TargetName="IconPart" Property="DockPanel.Dock" Value="Right" />
+                    <Setter TargetName="TextPart" Property="Margin" Value="8 0 0 0" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+    </Window.Resources>
 
     <Grid>
-        <Grid>
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Setter Property="IsHitTestVisible" Value="True"/>
-                    <Setter Property="Opacity" Value="1"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsProgressRingActive}" Value="True">
-                            <Setter Property="Opacity" Value="0.3"/>
-                            <Setter Property="IsHitTestVisible" Value="False"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="11.6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Controls:HamburgerMenu x:Name="HamburgerMenuControl" PaneBackground="#5f5f5f" DisplayMode="CompactOverlay" HamburgerWidth="48" ItemTemplate="{StaticResource HamburgerMenuItem}" OptionsItemTemplate="{StaticResource HamburgerOptionsMenuItem}" cal:Message.Attach="[Event ItemInvoked]=[Action MenuItemInvoked($eventArgs)]" >
+            <Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="White" FontWeight="DemiBold" Text="TickIT"/>
+                </DataTemplate>
+            </Controls:HamburgerMenu.HamburgerMenuHeaderTemplate>
 
-            <!--<tb:TaskbarIcon IconSource="/Images/app_icon.ico" ToolTipText="Task manager">
-                <tb:TaskbarIcon.TrayPopup>
-                    <StackPanel Width="100">
-                        <Button Content="Open" cal:Message.Attach="[Event Click] = [Action Open]" Style="{StaticResource TM.Button.TrayButton}"/>
-                        <Button Content="Quit" cal:Message.Attach="[Event Click] = [Action Quit]" Style="{StaticResource TM.Button.TrayButton}"/>
-                    </StackPanel>
-                </tb:TaskbarIcon.TrayPopup>
-            </tb:TaskbarIcon>-->
+            <Controls:HamburgerMenu.ItemsSource>
+                <Controls:HamburgerMenuItemCollection>
+                    <Controls:HamburgerMenuGlyphItem Glyph="/Images/home-light.png" Label="Home" Tag="HomeView" />
+                    <Controls:HamburgerMenuGlyphItem Glyph="/Images/rules-light.png" Label="Rules" Tag="RulesView" />
+                </Controls:HamburgerMenuItemCollection>
+            </Controls:HamburgerMenu.ItemsSource>
 
-            <ContentControl x:Name="ActiveItem"/>
-        </Grid>
-        <mah:ProgressRing IsActive="{Binding IsProgressRingActive}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Controls:HamburgerMenu.OptionsItemsSource>
+                <Controls:HamburgerMenuItemCollection>
+                    <Controls:HamburgerMenuIconItem Label="Help">
+                        <Controls:HamburgerMenuIconItem.Icon>
+                            <iconPacks:PackIconMaterial Width="22" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Help" />
+                        </Controls:HamburgerMenuIconItem.Icon>
+                        <Controls:HamburgerMenuIconItem.Tag>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Help"/>
+                        </Controls:HamburgerMenuIconItem.Tag>
+                    </Controls:HamburgerMenuIconItem>
+                </Controls:HamburgerMenuItemCollection>
+            </Controls:HamburgerMenu.OptionsItemsSource>
+
+            <Controls:HamburgerMenu.ContentTemplate>
+                <DataTemplate>
+                    <Grid x:Name="ContentGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="48" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Controls:TransitioningContentControl Grid.Row="1" Content="{Binding}" Foreground="DarkSlateGray" RestartTransitionOnContentChange="True" Transition="Default">
+                            <Controls:TransitioningContentControl.Resources>
+                                <DataTemplate DataType="{x:Type Controls:HamburgerMenuGlyphItem}">
+                                    <Image Source="{Binding Glyph, Mode=OneWay, Converter={StaticResource converters:NullToUnsetValueConverter}}" />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type Controls:HamburgerMenuIconItem}">
+                                    <ContentControl Content="{Binding Tag, Mode=OneWay}" Focusable="True" IsTabStop="False" />
+                                </DataTemplate>
+                            </Controls:TransitioningContentControl.Resources>
+                        </Controls:TransitioningContentControl>
+                    </Grid>
+                </DataTemplate>
+            </Controls:HamburgerMenu.ContentTemplate>
+        </Controls:HamburgerMenu>
+        <ContentControl Grid.Column="1" x:Name="ActiveItem"/>
     </Grid>
-</mah:MetroWindow>
+</mah:MetroWindow> 

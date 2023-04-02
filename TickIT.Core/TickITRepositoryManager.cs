@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using TockIT.Auth.Models;
+using TickIT.Auth.Models;
 
 namespace TickIT.Auth
 {
@@ -23,6 +24,7 @@ namespace TickIT.Auth
             string fileName = "GraphData.json";
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
             var text = File.ReadAllText(filePath);
+            //var response = JsonConvert.
             var response = JsonSerializer.Deserialize<GraphApiResponse<Message>>(text);
 
             if (_accessToken == null)

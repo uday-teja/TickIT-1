@@ -1,6 +1,5 @@
 {
-  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users('83a6ce12-90ab-4113-9ecf-c6773f60cfca')/messages",
-  "value": [
+  "value":[
     {
       "@odata.etag": "W/\"CQAAABYAAAB7E3MWASSeSY1aM68R6zZEAAR1D/mL\"",
       "id": "AAMkAGYyMDg0YTg2LTExNTctNGU2My1iODFlLTQ5ZmUxNDRmNTRjOQBGAAAAAAClVG26HQ-uS6S883hIoF7fBwB7E3MWASSeSY1aM68R6zZEAAAAAAEMAAB7E3MWASSeSY1aM68R6zZEAAR3IMhXAAA=",
@@ -635,6 +634,5 @@
         "flagStatus": "notFlagged"
       }
     }
-  ],
-  "@odata.nextLink": "https://graph.microsoft.com/v1.0/me/messages?%24top=10&%24skip=10"
+  ]
 }

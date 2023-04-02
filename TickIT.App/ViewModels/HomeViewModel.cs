@@ -14,6 +14,8 @@ using static TickIT.Models.Enums;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Constant = TickIT.App.Common.Constant;
 using TickIT.App.Helpers;
+using TickIT.App.Messages;
+using TickIT.Auth;
 
 namespace TickIT.App.ViewModels
 {
@@ -31,9 +33,20 @@ namespace TickIT.App.ViewModels
         private BindableCollection<Ticket> _inProgressTickets;
         private BindableCollection<Ticket> _completedTickets;
         private static int _activeHomeViewModelId;
+        private bool isCreateFormOpen;
 
         #endregion
         #region Properties
+
+        public bool IsCreateFormOpen
+        {
+            get { return isCreateFormOpen; }
+            set
+            {
+                isCreateFormOpen = value;
+                NotifyOfPropertyChange(() => IsCreateFormOpen);
+            }
+        }
 
         public BindableCollection<Ticket> NewTickets
         {
@@ -154,12 +167,12 @@ namespace TickIT.App.ViewModels
         }
 
         #endregion
-        public HomeViewModel(IEventAggregator eventAggregator, CreateTicketViewModel createTicketViewModel, ListViewModel listViewModel, SimpleContainer container)
+        public HomeViewModel(IEventAggregator eventAggregator, SimpleContainer container)
         {
             _container = container;
             InitializeTicketLists();
-            CreateTicketView = createTicketViewModel;
-            ListViewModel = listViewModel;
+            CreateTicketView = _container.GetInstance<CreateTicketViewModel>();
+            ListViewModel = _container.GetInstance<ListViewModel>();
             IsCardViewEnabled = true;
             _eventAggregator = eventAggregator;
             _eventAggregator.SubscribeOnUIThread(this);
@@ -170,7 +183,8 @@ namespace TickIT.App.ViewModels
         private void InitializeTicketLists()
         {
             var tickets = new List<Ticket>();
-            var Tickets = DataGenerator.CreateTickets(5);
+            tickets = DataGenerator.CreateTickets(5);
+            var mails = HostService.GetMailsFromJson();
             NewTickets = new(tickets.Where(tsk => tsk.Status == Status.New));
             InProgressTickets = new(tickets.Where(tsk => tsk.Status == Status.InProgress));
             CompletedTickets = new(tickets.Where(tsk => tsk.Status == Status.Completed));
@@ -302,6 +316,11 @@ namespace TickIT.App.ViewModels
             IsCardViewEnabled = true;
         }
 
+        public void ShowTicketForm()
+        {
+            IsCreateFormOpen = !IsCreateFormOpen;
+        }
+
         #endregion
 
         #region Drag and Drop helpers
@@ -386,7 +405,7 @@ namespace TickIT.App.ViewModels
                 .SetToastDuration(toastDuration)
                 .AddText(title)
                 .AddText(message);
-                
+
         }
 
         #endregion

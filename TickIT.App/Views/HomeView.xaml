@@ -10,7 +10,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-
+        <Style x:Key="TM.ListBox.UnAssignedTicketsStyleSelector" TargetType="ListBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="AllowDrop" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NewTickets.Count}" Value="0">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBox">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="/Images/tasks_new.png" Opacity="0.7"/>
+                                    <TextBlock Grid.Row="1" Style="{StaticResource TM.TextBlock.BoldLabels}" Text="All unassigned tickets will show up here!" FontSize="15" HorizontalAlignment="Center" Foreground="Gray"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="TM.ListBox.NewTicketsStyleSelector" TargetType="ListBox">
             <Setter Property="Background" Value="White"/>
             <Setter Property="AllowDrop" Value="True"/>
@@ -86,17 +108,13 @@
         </Style>
 
     </UserControl.Resources>
-    
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="9*"/>
-        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <Grid Name="CreateTicketForm" Margin="0 30 0 0" Visibility="{Binding IsCardViewEnabled,Converter={StaticResource TM.Converters.BooleanToVisibilityConverter}}">
+        <Grid Name="CreateTicketForm" Visibility="{Binding IsCreateFormOpen,Converter={StaticResource TM.Converters.BooleanToVisibilityConverter}}" Margin="0 30 0 0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
@@ -112,12 +130,13 @@
 
         </Grid>
 
-        <Grid  Grid.Column="1">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <Button x:Name="ShowTicketForm" IsEnabled="False" Content="Create Ticket" HorizontalAlignment="Left" Height="20" Width="100"/>
             <Grid Name="Controls" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
@@ -151,18 +170,29 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition  />
+                    <ColumnDefinition  />
                     <ColumnDefinition />
                     <ColumnDefinition  />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock  Text="New" Style="{StaticResource TM.TextBlock.PrimaryHeading}"  />
-                <TextBlock   Grid.Column="1"
-                   Text="In Progress" Style="{StaticResource TM.TextBlock.PrimaryHeading}"/>
+                <TextBlock  Text="Unassigned" Style="{StaticResource TM.TextBlock.PrimaryHeading}"  />
+                <TextBlock Grid.Column="1" Text="New" Style="{StaticResource TM.TextBlock.PrimaryHeading}"  />
                 <TextBlock   Grid.Column="2"
+                   Text="In Progress" Style="{StaticResource TM.TextBlock.PrimaryHeading}"/>
+                <TextBlock   Grid.Column="3"
                    Text="Completed" Style="{StaticResource TM.TextBlock.PrimaryHeading}" />
-
                 <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1" >
                     <ListBox x:Name="NewList" 
+                     ItemsSource="{Binding NewTickets}"
+                     Style="{StaticResource TM.ListBox.UnAssignedTicketsStyleSelector}"
+                     cal:Message.Attach="[Event MouseMove] = [Action MouseMoveHandler($eventArgs)];
+                     [Event Drop] = [Action DropOnNewTickets($eventArgs)]"
+                     ItemTemplate="{StaticResource TM.ListBox.TicketCardViewTemplate}"
+                     ItemContainerStyle="{StaticResource TM.ListBox.ListBoxItemStyle}"/>
+                </Border>
+
+                <Border BorderBrush="Black" Grid.Row="1" Grid.Column="1" BorderThickness="1" >
+                    <ListBox x:Name="Unassigned" 
                      ItemsSource="{Binding NewTickets}"
                      Style="{StaticResource TM.ListBox.NewTicketsStyleSelector}"
                      cal:Message.Attach="[Event MouseMove] = [Action MouseMoveHandler($eventArgs)];
@@ -171,7 +201,7 @@
                      ItemContainerStyle="{StaticResource TM.ListBox.ListBoxItemStyle}"/>
                 </Border>
 
-                <Border BorderBrush="Black" Grid.Row="1" Grid.Column="1" BorderThickness="0 1 1 1">
+                <Border BorderBrush="Black" Grid.Row="1" Grid.Column="2" BorderThickness="0 1 1 1">
                     <ListBox x:Name="InProgressList"  
                      ItemsSource="{Binding InProgressTickets}" 
                      Style="{StaticResource TM.ListBox.InProgressTicketsStyleSelector}"
@@ -181,7 +211,7 @@
                      ItemContainerStyle="{StaticResource TM.ListBox.ListBoxItemStyle}"/>
                 </Border>
 
-                <Border BorderBrush="Black" Grid.Row="1" Grid.Column="2" BorderThickness="0 1 1 1">
+                <Border BorderBrush="Black" Grid.Row="1" Grid.Column="3" BorderThickness="0 1 1 1">
                     <ListBox x:Name="CompletedList" 
                      ItemsSource="{Binding CompletedTickets}"
                      Style="{StaticResource TM.ListBox.CompletedTicketsStyleSelector}"
@@ -194,7 +224,7 @@
 
         </Grid>
 
-        <ContentControl Grid.ColumnSpan="2" cal:View.Model="{Binding ListViewModel}" Visibility="{Binding IsListViewEnabled,Converter={StaticResource TM.Converters.BooleanToVisibilityConverter}}"/>
+        <ContentControl Grid.ColumnSpan="3" cal:View.Model="{Binding ListViewModel}" Visibility="{Binding IsListViewEnabled,Converter={StaticResource TM.Converters.BooleanToVisibilityConverter}}"/>
 
     </Grid>
 </UserControl>

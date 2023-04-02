@@ -1,4 +1,4 @@
-﻿namespace TockIT.Auth.Models
+﻿namespace TickIT.Auth.Models
 {
     public class EmailAddress
     {

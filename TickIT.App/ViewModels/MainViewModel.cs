@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using System.Reflection.Metadata;
+using MahApps.Metro.Controls;
 
 namespace TickIT.App.ViewModels
 {
@@ -40,6 +40,22 @@ namespace TickIT.App.ViewModels
             HomeViewModel.ActiveHomeViewModelId = homeViewModel.GetHashCode();
             await ActivateItemAsync(homeViewModel);
             IsProgressRingActive = false;
+        }
+
+
+        public async void MenuItemInvoked(HamburgerMenuItemInvokedEventArgs eventArgs)
+        {
+            if(eventArgs != null && eventArgs.InvokedItem is HamburgerMenuItem item)
+            {
+                if(item.Tag.ToString() =="HomeView")
+                {
+                    DisplayHomeView();
+                }
+                else
+                {
+                    await ActivateItemAsync(_container.GetInstance<RulesViewModel>());
+                }
+            }
         }
     }
 }

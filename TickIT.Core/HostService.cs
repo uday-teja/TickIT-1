@@ -1,4 +1,10 @@
 ﻿using FluentScheduler;
+using System.Text.Json;
+using System;
+using TickIT.Auth.Models;
+using Message = TickIT.Auth.Models.Message;
+using System.IO;
+using System.Collections.Generic;
 
 namespace TickIT.Auth
 {
@@ -20,6 +26,13 @@ namespace TickIT.Auth
         public void OnStop()
         {
 
+        }
+        public static List<Message> GetMailsFromJson()
+        {
+            string fileName = "GraphData.json";
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            var text = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<GraphApiResponse<Message>>(text)?.Value;
         }
     }
 }

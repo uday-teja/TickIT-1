@@ -1,6 +1,8 @@
-﻿using static TickIT.Models.Enums;
+﻿
+using TickIT.Models.Models;
+using static TickIT.Models.Enums;
 
-namespace TickIT.Models.Models
+namespace TickIT.App.Messages
 {
     public class CreateEditTicketMessage
     {

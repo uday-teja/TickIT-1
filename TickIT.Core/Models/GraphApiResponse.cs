@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-namespace TockIT.Auth.Models
+namespace TickIT.Auth.Models
 {
     public class GraphApiResponse<T>
     {
+        [JsonPropertyName("value")]
+
         public List<T> Value { get; set; }
     }
 

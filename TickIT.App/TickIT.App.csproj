@@ -1,48 +1,67 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Images\app_icon.ico" />
-    <None Remove="Images\app_icon.png" />
-    <None Remove="Images\tasks_completed.png" />
-    <None Remove="Images\tasks_inprogress.png" />
-    <None Remove="Images\tasks_new.png" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TickIT.Models\TickIT.Models.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Remove="Images\rules-light.png" />
+		<Resource Remove="Images\home-light.png" />
+		<Resource Remove="Images\app_icon.ico" />
+		<Resource Remove="Images\app_icon.png" />
+		<Resource Remove="Images\home.png" />
+		<Resource Remove="Images\rules.png" />
+		<Resource Remove="Images\tasks_completed.png" />
+		<Resource Remove="Images\tasks_inprogress.png" />
+		<Resource Remove="Images\tasks_new.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Images\app_icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\app_icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\tasks_completed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\tasks_inprogress.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\tasks_new.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="Caliburn.Micro" Version="4.0.212" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
+		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\TickIT.Core\TickIT.Core.csproj" />
+		<ProjectReference Include="..\TickIT.Models\TickIT.Models.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Images\app_icon.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\app_icon.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\home-light.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\home.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\rules-light.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\rules.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\tasks_completed.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\tasks_inprogress.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Images\tasks_new.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 
 </Project>

@@ -21,10 +21,10 @@ namespace TickIT.App
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
-                .PerRequest<MainViewModel>()
                 .PerRequest<CreateTicketViewModel>()
                 .PerRequest<ListViewModel>()
-                .PerRequest<HomeViewModel>();
+                .PerRequest<HomeViewModel>()
+                .PerRequest<MainViewModel>();
             MapperBootstrapper.CreateMapper();
         }
         protected override object GetInstance(Type service, string key)

@@ -7,6 +7,7 @@ using System;
 using TickIT.Models.Models;
 using TickIT.App.Common;
 using System.Linq;
+using TickIT.App.Messages;
 
 namespace TickIT.App.ViewModels
 {
