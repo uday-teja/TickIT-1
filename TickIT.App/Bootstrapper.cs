@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System;
 using TickIT.App.ViewModels;
+using AutoMapper;
 
 namespace TickIT.App
 {
@@ -24,8 +25,8 @@ namespace TickIT.App
                 .PerRequest<CreateTicketViewModel>()
                 .PerRequest<ListViewModel>()
                 .PerRequest<HomeViewModel>()
-                .PerRequest<MainViewModel>();
-            MapperBootstrapper.CreateMapper();
+                .PerRequest<MainViewModel>()
+                .Instance<IMapper>(MapperBootstrapper.CreateMapper());
         }
         protected override object GetInstance(Type service, string key)
         {

@@ -1,13 +1,14 @@
 ﻿using Autofac;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using Topshelf;
 
-namespace TickIT.Auth
+namespace TickIT.Core
 {
-    public class Program
+    internal class Program
     {
-        private static IContainer _container;
+        private static Autofac.IContainer _container;
 
         public static void Main(string[] args)
         {
@@ -33,11 +34,11 @@ namespace TickIT.Auth
             {
                 x.UseNLog();
                 x.Service<HostService>(_ =>
-                    {
-                        _.ConstructUsing(name => _container.Resolve<HostService>());
-                        _.WhenStarted(s => s.OnStart());
-                        _.WhenStopped(tc => tc.OnStop());
-                    }
+                {
+                    _.ConstructUsing(name => _container.Resolve<HostService>());
+                    _.WhenStarted(s => s.OnStart());
+                    _.WhenStopped(tc => tc.OnStop());
+                }
                 );
 
                 x.StartAutomaticallyDelayed();

@@ -17,7 +17,7 @@ namespace TickIT.Models.Models
         #endregion
 
         #region Properties
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Name
         {
@@ -104,13 +104,13 @@ namespace TickIT.Models.Models
 
         public Ticket()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             CreatedOn = DateTime.Now;
             DueDate = DateTime.Now;
         }
         public Ticket(string name)
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             Name = name;
             IsDeleted = false;
             CreatedOn = DateTime.Now;

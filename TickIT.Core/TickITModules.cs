@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace TickIT.Auth
+namespace TickIT.Core
 {
     public class TickITModules : Module
     {

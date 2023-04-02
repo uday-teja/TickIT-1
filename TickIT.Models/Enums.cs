@@ -11,6 +11,7 @@ namespace TickIT.Models
     {
         public enum Status
         {
+            Unassigned,
             [Description("New")]
             New,
             [Description("In Progress")]

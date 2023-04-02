@@ -1,13 +1,16 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.Graph.Models;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using TickIT.Auth.Models;
+using TickIT.Core.Models;
+using Message = TickIT.Core.Models.Message;
+using Prompt = Microsoft.Identity.Client.Prompt;
 
-namespace TickIT.Auth
+namespace TickIT.Core
 {
     public class TickITRepositoryManager
     {
@@ -37,7 +40,7 @@ namespace TickIT.Auth
 
         private async Task<AuthenticationResult> GetAccessToken()
         {
-            var builder = PublicClientApplicationBuilder.Create("f1ac50e2-3609-478a-9f03-a423e98b96e1")
+            var builder = PublicClientApplicationBuilder.Create("58c7546f-cfe6-4a1f-bc56-6e0330e2b0ac")
                                                         .WithAuthority($"{_instance}865cc515-a530-4538-8ef8-072b7b2be759")
                                                         .WithDefaultRedirectUri();
             _clientApp = builder.Build();
@@ -47,7 +50,6 @@ namespace TickIT.Auth
                 "User.Read",
                 "Mail.Read"
             };
-
             AuthenticationResult authResult = await _clientApp.AcquireTokenInteractive(scopes)
                                                               .WithPrompt(Prompt.SelectAccount)
                                                               .ExecuteAsync();
@@ -57,11 +59,11 @@ namespace TickIT.Auth
 
         public async Task<string> GetHttpContentWithToken(string url, string token)
         {
-            var httpClient = new System.Net.Http.HttpClient();
-            System.Net.Http.HttpResponseMessage response;
+            var httpClient = new HttpClient();
+            HttpResponseMessage response;
             try
             {
-                var request = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
                 //Add the token in Authorization header
                 request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 response = await httpClient.SendAsync(request);

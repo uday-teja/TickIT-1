@@ -1,8 +1,11 @@
-﻿using Microsoft.Graph.Models;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace TickIT.Auth.Models
+namespace TickIT.Core.Models
 {
     public class Message
     {
@@ -17,6 +20,6 @@ namespace TickIT.Auth.Models
         [JsonPropertyName("from")]
         public EmailAddress From { get; set; }
         [JsonPropertyName("webLink")]
-        public string WebLink { get; set; } 
+        public string WebLink { get; set; }
     }
 }

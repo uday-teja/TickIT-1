@@ -472,7 +472,7 @@
                 <iconPacks:BoxIcons Kind="SolidPencil"  Height="15" Width="15"/>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click" >
-                        <cal:ActionMessage MethodName="DisplayTaskById">
+                        <cal:ActionMessage MethodName="DisplayTicketById">
                             <cal:Parameter Value="{Binding Id}"/>
                         </cal:ActionMessage>
                     </i:EventTrigger>

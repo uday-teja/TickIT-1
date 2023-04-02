@@ -14,7 +14,7 @@ namespace TickIT.App.Helpers
             {
                 tasks.Add(new Ticket()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = $"Dummy task {i}",
                     Description = $"Dummy descripiton",
                     Status = (Enums.Status)(i % 3),

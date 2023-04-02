@@ -183,7 +183,7 @@
                    Text="Completed" Style="{StaticResource TM.TextBlock.PrimaryHeading}" />
                 <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1" >
                     <ListBox x:Name="NewList" 
-                     ItemsSource="{Binding NewTickets}"
+                     ItemsSource="{Binding UnassignedTickets}"
                      Style="{StaticResource TM.ListBox.UnAssignedTicketsStyleSelector}"
                      cal:Message.Attach="[Event MouseMove] = [Action MouseMoveHandler($eventArgs)];
                      [Event Drop] = [Action DropOnNewTickets($eventArgs)]"

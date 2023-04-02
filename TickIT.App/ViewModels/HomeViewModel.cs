@@ -15,7 +15,10 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Constant = TickIT.App.Common.Constant;
 using TickIT.App.Helpers;
 using TickIT.App.Messages;
-using TickIT.Auth;
+using TickIT.Core;
+using AutoMapper;
+using System.Diagnostics;
+using Microsoft.Graph.Drives.Item.Items.Item.Workbook.Functions.WeekNum;
 
 namespace TickIT.App.ViewModels
 {
@@ -26,6 +29,7 @@ namespace TickIT.App.ViewModels
         private bool _isListViewEnabled;
         private bool _isCardViewEnabled;
         private readonly SimpleContainer _container;
+        private readonly IMapper _mapper;
         private readonly IEventAggregator _eventAggregator;
         private CreateTicketViewModel _createTicketView;
         private ListViewModel _listViewModel;
@@ -34,6 +38,7 @@ namespace TickIT.App.ViewModels
         private BindableCollection<Ticket> _completedTickets;
         private static int _activeHomeViewModelId;
         private bool isCreateFormOpen;
+        private BindableCollection<Ticket> _unassignedTickets;
 
         #endregion
         #region Properties
@@ -46,6 +51,20 @@ namespace TickIT.App.ViewModels
                 isCreateFormOpen = value;
                 NotifyOfPropertyChange(() => IsCreateFormOpen);
             }
+        }
+
+        public BindableCollection<Ticket> UnassignedTickets
+        {
+            get
+            {
+                return _unassignedTickets;
+            }
+            set
+            {
+                _unassignedTickets = value;
+                NotifyOfPropertyChange(nameof(UnassignedTickets));
+            }
+
         }
 
         public BindableCollection<Ticket> NewTickets
@@ -167,9 +186,10 @@ namespace TickIT.App.ViewModels
         }
 
         #endregion
-        public HomeViewModel(IEventAggregator eventAggregator, SimpleContainer container)
+        public HomeViewModel(IEventAggregator eventAggregator, SimpleContainer container, IMapper mapper)
         {
             _container = container;
+            _mapper = mapper;
             InitializeTicketLists();
             CreateTicketView = _container.GetInstance<CreateTicketViewModel>();
             ListViewModel = _container.GetInstance<ListViewModel>();
@@ -185,6 +205,7 @@ namespace TickIT.App.ViewModels
             var tickets = new List<Ticket>();
             tickets = DataGenerator.CreateTickets(5);
             var mails = HostService.GetMailsFromJson();
+            UnassignedTickets = new(new List<Ticket> { _mapper.Map<Ticket>(mails[0]) });
             NewTickets = new(tickets.Where(tsk => tsk.Status == Status.New));
             InProgressTickets = new(tickets.Where(tsk => tsk.Status == Status.InProgress));
             CompletedTickets = new(tickets.Where(tsk => tsk.Status == Status.Completed));
@@ -211,7 +232,7 @@ namespace TickIT.App.ViewModels
             }
         }
 
-        private Ticket? GetTicketFromUI(Guid id)
+        private Ticket? GetTicketFromUI(string id)
         {
             return new[] { NewTickets, InProgressTickets, CompletedTickets }.SelectMany(tsk => tsk).FirstOrDefault(tsk => tsk.Id == id);
         }
@@ -231,11 +252,12 @@ namespace TickIT.App.ViewModels
             }
         }
 
-        public void DisplayTicketById(Guid id)
+        public void DisplayTicketById(string id)
         {
-            Ticket selectedTicket = null;
+            Ticket selectedTicket = UnassignedTickets.FirstOrDefault(t=>t.Id.Equals(id));
             if (selectedTicket != null)
             {
+                Process.Start(new ProcessStartInfo {  FileName= selectedTicket.Description, UseShellExecute = true });
                 _eventAggregator.PublishOnUIThreadAsync(new CreateEditTicketMessage() { Sender = this, Ticket = selectedTicket, OperationType = OperationType.Display });
             }
         }
@@ -246,7 +268,7 @@ namespace TickIT.App.ViewModels
         /// <param name="id"></param>
         /// <param name="status"></param>
         /// <param name="isUiUpdate"></param>
-        public async void DeleteById(Guid id, Status status, bool isUiUpdate = false)
+        public async void DeleteById(string id, Status status, bool isUiUpdate = false)
         {
 
             if (!isUiUpdate)
@@ -281,7 +303,7 @@ namespace TickIT.App.ViewModels
             }
         }
 
-        private void RemoveTicketFromUI(Guid id, Status status)
+        private void RemoveTicketFromUI(string id, Status status)
         {
             try
             {

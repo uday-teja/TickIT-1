@@ -217,7 +217,7 @@ namespace TickIT.App.ViewModels
             });
         }
 
-        public async Task DeleteTicketById(Guid id)
+        public async Task DeleteTicketById(string id)
         {
             if (await DialogHelper.ShowMessageDialog(Constant.ConfirmDeleteWinTitle, Constant.ConfirmDeleteMsg, MessageDialogStyle.AffirmativeAndNegative))
             {
@@ -241,7 +241,7 @@ namespace TickIT.App.ViewModels
             FilteredTickets.Add(ticket);
         }
 
-        public void RemoveTicketFromUI(Guid id)
+        public void RemoveTicketFromUI(string id)
         {
             try
             {

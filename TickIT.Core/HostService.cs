@@ -1,12 +1,8 @@
 ﻿using FluentScheduler;
 using System.Text.Json;
-using System;
-using TickIT.Auth.Models;
-using Message = TickIT.Auth.Models.Message;
-using System.IO;
-using System.Collections.Generic;
+using TickIT.Core.Models;
 
-namespace TickIT.Auth
+namespace TickIT.Core
 {
     public class HostService
     {
