@@ -8,6 +8,9 @@ import { LetNavComponent } from './home/nav-bar/let-nav/let-nav.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TicketsComponent } from './home/tickets/tickets.component';
 import { AddTicketComponent } from './home/tickets/add-ticket/add-ticket.component';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { LeftNavComponent } from './components/shared/left-nav/left-nav.component';
+import { SearchComponent } from './components/shared/search/search.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { AddTicketComponent } from './home/tickets/add-ticket/add-ticket.compone
     HomeComponent,
     LetNavComponent,
     TicketsComponent,
-    AddTicketComponent
+    AddTicketComponent,
+    HeaderComponent,
+    LeftNavComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

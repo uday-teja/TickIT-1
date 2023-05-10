@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
-
 
 @Component({
   selector: 'app-home',

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddTicketComponent } from './add-ticket.component';
+import { LeftNavComponent } from './left-nav.component';
 
-describe('AddTicketComponent', () => {
-  let component: AddTicketComponent;
-  let fixture: ComponentFixture<AddTicketComponent>;
+describe('LeftNavComponent', () => {
+  let component: LeftNavComponent;
+  let fixture: ComponentFixture<LeftNavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddTicketComponent ]
+      declarations: [ LeftNavComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddTicketComponent);
+    fixture = TestBed.createComponent(LeftNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
