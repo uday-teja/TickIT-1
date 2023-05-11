@@ -3,32 +3,34 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home/home.component';
-import { LetNavComponent } from './home/nav-bar/let-nav/let-nav.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TicketsComponent } from './home/tickets/tickets.component';
-import { AddTicketComponent } from './home/tickets/add-ticket/add-ticket.component';
-import { HeaderComponent } from './components/shared/header/header.component';
-import { LeftNavComponent } from './components/shared/left-nav/left-nav.component';
-import { SearchComponent } from './components/shared/search/search.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { LeftNavComponent } from './shared/components/left-nav/left-nav.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CreateNewTicketComponent } from './shared/components/create-new-ticket/create-new-ticket.component';
+import { TicketFiltersComponent } from './components/ticket-filters/ticket-filters.component';
+import { TicketsDatagridComponent } from './components/tickets-datagrid/tickets-datagrid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    LetNavComponent,
-    TicketsComponent,
-    AddTicketComponent,
     HeaderComponent,
     LeftNavComponent,
-    SearchComponent
+    TicketsComponent,
+    DashboardComponent,
+    CreateNewTicketComponent,
+    TicketFiltersComponent,
+    TicketsDatagridComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

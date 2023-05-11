@@ -1,0 +1,10 @@
+.nav-button{
+    background-color: transparent;
+    border: 0;
+    color: #0D6efd;
+    text-align: start;
+}
+.nav-button:hover{
+    background-color: #d6e6fd;
+    
+}
