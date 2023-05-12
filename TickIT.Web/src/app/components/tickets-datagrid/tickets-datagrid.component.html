@@ -1,15 +1,31 @@
-<div class="row">
-    <table class="table m-2 p-1">
-        <thead class="thead">
-            <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Ticket ID</th>
-                <th scope="col">Summary</th>
-                <th scope="col">Assigned by</th>
-                <th scope="col">Priority</th>
-                <th scope="col">Status</th>
-                <th scope="col">Date Created</th>
-              </tr>
-        </thead>
-    </table>
+<div class="container-fluid ps-1">
+    <div class="full-height-div">
+        <table class="table m-2 p-1">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">Type</th>
+                    <th scope="col">Ticket ID</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col">Assigned by</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ticket of tickets | slice: (currentPage-1)*pageSize:currentPage*pageSize">
+                    <td>{{ticket.category}}</td>
+                    <td>{{ticket.id}}</td>
+                    <td>{{ticket.name}}</td>
+                    <td>{{ticket.description}}</td>
+                    <td>{{ticket.priority}}</td>
+                    <td>{{ticket.status}}</td>
+                    <td>{{ticket.dateCreated}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="float-end">
+        <ngb-pagination [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="tickets.length"></ngb-pagination>
+    </div>
 </div>

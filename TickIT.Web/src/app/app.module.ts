@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreateNewTicketComponent } from './shared/components/create-new-ticket/create-new-ticket.component';
 import { TicketFiltersComponent } from './components/ticket-filters/ticket-filters.component';
 import { TicketsDatagridComponent } from './components/tickets-datagrid/tickets-datagrid.component';
+import { NewTicketComponent } from './components/new-ticket/new-ticket.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TicketsDatagridComponent } from './components/tickets-datagrid/tickets-
     CreateNewTicketComponent,
     TicketFiltersComponent,
     TicketsDatagridComponent,
+    NewTicketComponent,
   ],
   imports: [
     BrowserModule,
