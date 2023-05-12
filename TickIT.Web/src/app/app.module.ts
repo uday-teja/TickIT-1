@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +12,7 @@ import { CreateNewTicketComponent } from './shared/components/create-new-ticket/
 import { TicketFiltersComponent } from './components/ticket-filters/ticket-filters.component';
 import { TicketsDatagridComponent } from './components/tickets-datagrid/tickets-datagrid.component';
 import { NewTicketComponent } from './components/new-ticket/new-ticket.component';
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { NewTicketComponent } from './components/new-ticket/new-ticket.component
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

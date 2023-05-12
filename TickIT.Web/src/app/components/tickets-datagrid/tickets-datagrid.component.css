@@ -1,3 +1,6 @@
 .full-height-div{
-    min-height:65vh;
+    height: 63vh;
+}
+.table{
+    border:2px solid #e0e0e0;
 }

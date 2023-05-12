@@ -1,6 +1,6 @@
-<div class="container-fluid ps-1">
+<div class="container-fluid ps-1 ">
     <div class="full-height-div">
-        <table class="table m-2 p-1">
+        <table class="table m-2 p-1 bg-white">
             <thead class="thead">
                 <tr>
                     <th scope="col">Type</th>
@@ -25,7 +25,7 @@
             </tbody>
         </table>
     </div>
-    <div class="float-end">
+    <div class="float-end pagination mt-2 my-auto">
         <ngb-pagination [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="tickets.length"></ngb-pagination>
     </div>
 </div>

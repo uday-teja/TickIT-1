@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-new-ticket',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./new-ticket.component.css']
 })
 export class NewTicketComponent {
-
+  public editor: Editor;
+  constructor() {
+    this.editor = new Editor();
+  }
+  ngOnDestroy():void{
+    this.editor.destroy();
+  }
 }
