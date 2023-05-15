@@ -3,3 +3,11 @@
     height: 78vh;
     overflow: hidden;
 }
+.dropdown-filter
+{
+    border: 1px solid rgb(240, 233, 233);
+    border-radius: 8px;
+}
+.dropdown-filter:focus{
+    outline: 1px solid rgb(200,200,200);
+}

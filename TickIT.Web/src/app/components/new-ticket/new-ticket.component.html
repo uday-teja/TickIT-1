@@ -4,12 +4,12 @@
         <div class="col-7 new-ticket-form bg-white m-4 p-3">
             <label class="fw-bold my-1">Ticket Name*</label>
             <div class="row mx-1">
-                <input type="text" placeholder="type here">
+                <input type="text" class="form-control-sm dropdown-filter" placeholder="type here">
             </div>
             <div class="row justify-content-between mt-3 px-3">
                 <div class="col-6 p-0 pe-3">
                     <label class="fw-bold my-1">Status</label>
-                    <select class="form-control-sm w-100">
+                    <select class="form-control-sm w-100 dropdown-filter">
                         <option>Status</option>
                         <option>New</option>
                         <option>Active</option>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-6 p-0 ps-3">
                     <label class="fw-bold my-1">Priority</label>
-                    <select class="form-control-sm w-100">
+                    <select class="form-control-sm w-100 dropdown-filter">
                         <option>Priority</option>
                         <option>Low</option>
                         <option>Medium</option>
@@ -30,7 +30,7 @@
             <div class="row justify-content-between mt-3 px-3">
                 <div class="col-6 p-0 pe-3">
                     <label class="fw-bold my-1">Category</label>
-                    <select class="form-control-sm w-100">
+                    <select class="form-control-sm w-100 dropdown-filter">
                         <option>Category</option>
                         <option>New</option>
                         <option>Active</option>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-6 p-0 ps-3">
                     <label class="fw-bold my-1">Due Date</label>
-                    <input type="datetime-local" class="form-control-sm d-block w-100"/>
+                    <input type="datetime-local" class="form-control-sm d-block w-100 dropdown-filter"/>
                 </div>
             </div>
             <div class="row justify-content-between mt-3 px-3">
@@ -52,7 +52,7 @@
             <div class="row justify-content-between mt-3 px-3">
                 <div class="p-0">
                     <label class="fw-bold my-1">Description</label>
-                    <div class="NgxEditor__Wrapper">
+                    <div class="NgxEditor__Wrapper border-secondary">
                         <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
                         <ngx-editor [editor]="editor" [placeholder]="'Type here...'"></ngx-editor>
                       </div>
