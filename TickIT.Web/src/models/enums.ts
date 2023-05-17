@@ -1,4 +1,5 @@
 export enum Status{
+    All,
     Unassigned,
     New,
     InProgress,
@@ -6,12 +7,14 @@ export enum Status{
 }
 
 export enum Priority{
+    All,
     Low,
     Medium,
     High
 }
 
 export enum Category{
+    All,
     FeatureRequest,
     Issue,
     Enhancement,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-tickets',
@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./tickets.component.css']
 })
 export class TicketsComponent {
+  public searchWord:string;
+  constructor() {
+    this.searchWord = '';
 
+  }
+
+
+  handleSearch(searchValue : any){
+    this.searchWord = searchValue;
+  }
 }

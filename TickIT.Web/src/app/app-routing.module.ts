@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TicketsComponent } from './components/tickets/tickets.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewTicketComponent } from './components/new-ticket/new-ticket.component';

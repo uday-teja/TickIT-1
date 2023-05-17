@@ -14,16 +14,19 @@
             </thead>
             <tbody>
                 <tr *ngFor="let ticket of tickets | slice: (currentPage-1)*pageSize:currentPage*pageSize">
-                    <td>{{ticket.category}}</td>
+                    <td>{{(Category[ticket.category])}}</td>
                     <td>{{ticket.id}}</td>
                     <td>{{ticket.name}}</td>
                     <td>{{ticket.description}}</td>
-                    <td>{{ticket.priority}}</td>
-                    <td>{{ticket.status}}</td>
+                    <td>{{(Priority[ticket.priority])}}</td>
+                    <td>{{(Status[ticket.status])}}</td>
                     <td>{{ticket.dateCreated}}</td>
                 </tr>
             </tbody>
         </table>
+        <div class="row m-auto" *ngIf="!hasTickets">
+            <p class="m-auto">No tickets found</p>
+        </div>
     </div>
     <div class="float-end pagination mt-2 my-auto">
         <ngb-pagination [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="tickets.length"></ngb-pagination>

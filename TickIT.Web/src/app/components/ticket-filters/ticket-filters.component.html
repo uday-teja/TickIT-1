@@ -1,31 +1,25 @@
 <div class="row ms-1 my-3">
-    <div class="col p-0 "><input type="search" class="dropdown-filter form-control-sm" placeholder="Search By ID"></div>
-    <div class="col ms-2 p-0">
-        <select class="form-control-sm mx-auto dropdown-filter">
-            <option>Type</option>
-            <option>Issue</option>
-            <option>Feature request</option>
-            <option>Improvement</option>
+    <div class="col-2 p-0 "><input type="search" (input)="onTextChanged($event)" class="dropdown-filter form-control-sm"
+            placeholder="Search By ID"></div>
+    <div class="col-2 ms-2 p-0">
+            <span class="me-1">Category</span>
+            <select class="form-control-sm dropdown-filter" (change)="onCategorySelectionChanged($event)">
+                <option *ngFor="let category of categoryOptions">{{category}}</option>
+            </select>
+    </div>
+    <div class="col-2 ms-4 p-0">
+        <span class="me-1">Status</span>
+        <select class="form-control-sm dropdown-filter" (change)="onStatusSelectionChanged($event)">
+            <option *ngFor="let status of statusOptions">{{status}}</option>
         </select>
     </div>
-    <div class="col ms-2 p-0">
-        <select class="form-control-sm dropdown-filter">
-            <option>Status</option>
-            <option>New</option>
-            <option>Active</option>
-            <option>Abandoned</option>
-            <option>Archived</option>
+    <div class="col-2 p-0">
+        <span class="me-1">Priority</span>
+        <select class="form-control-sm dropdown-filter" (change)="onPrioritySelectionChanged($event)">
+            <option *ngFor="let priority of priorityOptions">{{priority}}</option>
         </select>
     </div>
-    <div class="col p-0">
-        <select class="form-control-sm dropdown-filter">
-            <option>Priority</option>
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-        </select>
-    </div>
-    <div class="col-6">
+    <div class="col-5">
 
     </div>
 </div>
